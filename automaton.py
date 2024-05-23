@@ -33,27 +33,21 @@ def main():
     for input in csv_reader:
         q = [initial_state]
         # input[0] since we are processing the word (Ex: aaabaabbb) and not the expected result.
-        initial_time = time.perf_counter()
+        initial_time = time.perf_counter_ns()
         for symbol in input[0]:
             q = delta(q,symbol,transitions)
-            # print(q)
-        # print()
-        # print(q)
-        # print(final_states)
-        ending_time = time.perf_counter()
-        print(f'{input[0]};{input[1]};{detect_if_valid(q,final_states)};{ending_time-initial_time}')
+        ending_time = time.perf_counter_ns()
         elapsed_time = (ending_time-initial_time) 
+        print(f'{input[0]};{input[1]};{detect_if_valid(q,final_states)};{elapsed_time}')
         csv_writer.writerow([f'{input[0]}']+[f'{input[1]}']+[f'{detect_if_valid(q,final_states)}']+[elapsed_time])
         
-
-
 def delta(q,symbol,transitions):
     new_q = []
     for state in q:
         key = f'{state}{symbol}'
         if(key in transitions):
             for new_state in transitions[key]:
-                print(f'{key}={new_state}')
+                # print(f'{key}={new_state}')
                 new_q.append(new_state)
     return new_q
 
@@ -65,7 +59,7 @@ def detect_if_valid(q, final_states):
 
 if __name__ == '__main__':
     if(len(sys.argv) < 3):
-        print("Error: missing arguments. Execute the program properly by running in your terminal: python automata.py <automata-archive.aut> <automata-input.in> <automata-output.out>")
+        print("Error: missing arguments. Execute the program properly by running in your terminal: python automaton.py <automata-archive.aut> <automata-input.in> <automata-output.out>")
         exit(1)
     
     main()
