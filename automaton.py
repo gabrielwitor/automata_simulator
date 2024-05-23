@@ -16,13 +16,10 @@ def main():
     final_states = [str(final_state) for final_state in aut_dict['final']]
 
     # Creating a multimap for transitions. Format: 0a = 1
-
     transitions = defaultdict(list)
 
     for transition in aut_dict['transitions']:
         transitions[transition['from']+transition['read']].append(transition['to'])
-
-    # print(transitions)
 
     input_csv = open(sys.argv[2])
     csv_reader = csv.reader(input_csv, delimiter=';')
@@ -40,14 +37,20 @@ def main():
         elapsed_time = (ending_time-initial_time) 
         print(f'{input[0]};{input[1]};{detect_if_valid(q,final_states)};{elapsed_time}')
         csv_writer.writerow([f'{input[0]}']+[f'{input[1]}']+[f'{detect_if_valid(q,final_states)}']+[elapsed_time])
-        
+
 def delta(q,symbol,transitions):
     new_q = []
     for state in q:
         key = f'{state}{symbol}'
         if(key in transitions):
             for new_state in transitions[key]:
-                # print(f'{key}={new_state}')
+                print(f'{key}={new_state}')
+                new_q.append(new_state)
+        # Handle empty movements
+        key = f'{state}'
+        if(key in transitions): 
+            for new_state in transitions[key]:
+                print(f'{key}={new_state}')
                 new_q.append(new_state)
     return new_q
 
@@ -61,5 +64,4 @@ if __name__ == '__main__':
     if(len(sys.argv) < 3):
         print("Error: missing arguments. Execute the program properly by running in your terminal: python automaton.py <automata-archive.aut> <automata-input.in> <automata-output.out>")
         exit(1)
-    
     main()

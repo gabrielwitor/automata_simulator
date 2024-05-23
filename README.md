@@ -56,7 +56,7 @@ aaaa;0;0;3910
 
 In order to run this program, you'll need to have [python](https://www.python.org/) version 3.12.3 or superior installed.
 
-In order to understand the process done by this code, it is very recommended that you have some basic knowledge about [automatas](https://pt.wikipedia.org/wiki/Aut%C3%B4mato).
+In order to understand the process done by this code, it is very recommended that you have some basic knowledge about [automata](https://pt.wikipedia.org/wiki/Aut%C3%B4mato).
 ## Installation
 
 Clone this repo
